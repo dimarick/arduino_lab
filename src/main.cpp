@@ -11,7 +11,8 @@
 #define SW1 2
 #define SW1_ON LOW
 
-static int taskNo = 6;
+// Номер задания от 1 до 6 включительно. 6 - задание индивидуальное по вариантам.
+static int taskNo = 1;
 static int sw1 = 0;
 
 void task1();
