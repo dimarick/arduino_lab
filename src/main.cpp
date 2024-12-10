@@ -1,11 +1,12 @@
 #include <Arduino.h>
 
+#define INDICATOR 3
 #define RED 4
 #define YELLOW 5
 #define GREEN 6
 
 #define SW1 2
-#define SW1_ON LOW
+#define SW1_ON HIGH
 
 static int sw1 = 0;
 
@@ -13,11 +14,11 @@ void ledOn(int pin, unsigned long ms);
 
 void setup() {
     pinMode(LED_BUILTIN, OUTPUT);
+    pinMode(INDICATOR, OUTPUT);
     pinMode(RED, OUTPUT);
     pinMode(YELLOW, OUTPUT);
     pinMode(GREEN, OUTPUT);
-    // обязательно используем подтягивающие резисторы, так как пины висят "в воздухе"
-    pinMode(SW1, INPUT_PULLUP);
+    pinMode(SW1, INPUT);
 }
 
 void loop() {
@@ -25,10 +26,13 @@ void loop() {
 
     // Индикатор нажатия кнопки
     digitalWrite(LED_BUILTIN, sw1 == SW1_ON ? HIGH : LOW);
+    digitalWrite(INDICATOR, HIGH);
 
     if (sw1 != SW1_ON) {
         return;
     }
+
+    digitalWrite(INDICATOR, LOW);
 
     for (int i = 0; i < 5; i++) {
         ledOn(RED, 1000);
